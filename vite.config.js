@@ -1,6 +1,7 @@
 import { defineConfig, splitVendorChunkPlugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { viteExternalsPlugin } from 'vite-plugin-externals'
+import UnoCSS from 'unocss/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -9,6 +10,9 @@ export default defineConfig({
     minify: false,
     rollupOptions: {
       output: {
+        entryFileNames: `assets/[name].js`,
+        chunkFileNames: `assets/[name].js`,
+        assetFileNames: `assets/[name].[ext]`,
         manualChunks(id) {
           if (id.includes('entry')) {
             return 'entry'
@@ -19,6 +23,7 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    UnoCSS(),
     splitVendorChunkPlugin(),
     viteExternalsPlugin({
       vue: 'Vue',
