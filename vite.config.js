@@ -4,6 +4,7 @@ import { viteExternalsPlugin } from 'vite-plugin-externals'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: 'http://localhost:8090',
   build: {
     minify: false,
     rollupOptions: {
