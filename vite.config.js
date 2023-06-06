@@ -1,4 +1,4 @@
-import { defineConfig,splitVendorChunkPlugin } from 'vite'
+import { defineConfig, splitVendorChunkPlugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { viteExternalsPlugin } from 'vite-plugin-externals'
 
@@ -6,14 +6,15 @@ import { viteExternalsPlugin } from 'vite-plugin-externals'
 export default defineConfig({
   build: {
     minify: false,
-    // rollupOptions: {
-      // external: ['vue'],
-      // output: {
-      //   globals: {
-      //     vue: 'Vue',
-      //   },
-      // },
-    // },
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('entry')) {
+            return 'entry'
+          }
+        }
+      }
+    }
   },
   plugins: [
     vue(),
@@ -22,5 +23,5 @@ export default defineConfig({
       vue: 'Vue',
       'vue-router': 'VueRouter'
     })
-  ],
+  ]
 })
