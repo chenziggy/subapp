@@ -2,6 +2,8 @@ import { defineConfig, splitVendorChunkPlugin } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { viteExternalsPlugin } from 'vite-plugin-externals'
 import UnoCSS from 'unocss/vite'
+import Inspect from 'vite-plugin-inspect'
+import handle from './vite-plugin'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -22,8 +24,12 @@ export default defineConfig({
     }
   },
   plugins: [
+    Inspect({
+      build: true,
+      outputDir: '.vite-inspect'}),
     vue(),
     UnoCSS(),
+    handle(),
     splitVendorChunkPlugin(),
     viteExternalsPlugin({
       vue: 'Vue',
