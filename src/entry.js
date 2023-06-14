@@ -8,8 +8,9 @@ import './style.css'
     routes
   }
 }
-
+const DEV = import.meta.env.DEV
 
 export {
-  registerApp
+  registerApp,
+  DEV
 }

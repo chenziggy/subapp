@@ -23,6 +23,7 @@ import App from './App.vue'
 // const app = createApp(App)
 // app.use(router)
 // app.mount('#app')
-import {registerApp} from './entry'
+import {registerApp,DEV} from './entry'
+console.log('dev:', DEV)
 
 window.registerApp = registerApp

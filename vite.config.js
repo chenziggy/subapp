@@ -46,6 +46,14 @@ export default defineConfig({
     }),
   ],
   server: {
-    port: 5175
+    port: 5175,
+    proxy: {
+      '/assets': {
+        target: 'http://localhost:5175/src',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/assets/, ''),
+
+      }
+    }
   }
 });
