@@ -1,39 +1,51 @@
-import { defineConfig, splitVendorChunkPlugin } from 'vite'
-import vue from '@vitejs/plugin-vue'
-import { viteExternalsPlugin } from 'vite-plugin-externals'
-import UnoCSS from 'unocss/vite'
-import Inspect from 'vite-plugin-inspect'
-import handle from './vite-plugin'
+import { defineConfig } from "vite";
+import vue from "@vitejs/plugin-vue";
+import { viteExternalsPlugin } from "vite-plugin-externals";
+import UnoCSS from "unocss/vite";
+import Inspect from "vite-plugin-inspect";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: 'http://localhost:8090',
+  base: "http://localhost:8090",
   build: {
     minify: false,
     rollupOptions: {
       output: {
-        entryFileNames: `assets/[name].js`,
-        chunkFileNames: `assets/[name].js`,
-        assetFileNames: `assets/[name].[ext]`,
-        manualChunks(id) {
-          if (id.includes('entry')) {
-            return 'entry'
+        minifyInternalExports: false,
+        chunkFileNames( chunkInfo) {
+          if (chunkInfo.name==='entry') {
+            return "assets/[name].js"
           }
-        }
-      }
-    }
+          return "assets/[name]-[hash].js"
+        },
+        assetFileNames(assetInfo) {
+          if (assetInfo.name === 'entry.css') {
+            return "assets/[name][extname]"
+          }
+          return "assets/[name]-[hash][extname]"
+        },
+        manualChunks(id) {
+          if (id.includes("entry")) {
+            return "entry";
+          }
+        },
+      },
+    },
   },
   plugins: [
-    Inspect({
-      build: true,
-      outputDir: '.vite-inspect'}),
     vue(),
     UnoCSS(),
-    handle(),
-    splitVendorChunkPlugin(),
     viteExternalsPlugin({
-      vue: 'Vue',
-      'vue-router': 'VueRouter'
-    })
-  ]
-})
+      vue: "Vue",
+      "vue-router": "VueRouter",
+    }),
+
+    Inspect({
+      build: true,
+      outputDir: ".vite-inspect",
+    }),
+  ],
+  server: {
+    port: 5175
+  }
+});
