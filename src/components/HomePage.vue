@@ -1,6 +1,6 @@
 <template>
   <div>
-    home page
+    <h1 class="text-blue mb-10">SubApp Home page</h1>
     <button @click="goBack">go back</button>
   </div>
 </template>

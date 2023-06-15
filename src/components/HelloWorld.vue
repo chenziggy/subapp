@@ -12,14 +12,16 @@ const count = ref(0)
 
 <template>
   <h1>{{ msg }}</h1>
-
   <div class="card">
-    <button @click="router.push('home')">go home</button>
-    <button type="button" @click="count++">count is {{ count }}</button>
-    <p class="text-red">
-      Edit
-      <code>components/HelloWorld.vue</code> to test HMR
-    </p>
+    <h1 class="text-red mb-10">
+      SubApp zoom HelloWorld.vue
+    </h1>
+    <div>
+      <button class="mx-4" @click="router.push('home')">go home</button>
+      <button class="mx-4" @click="router.push('/helloworld')">go baseApp home</button>
+    </div>
+    <button class="my-4 text-yellow text-10" type="button" @click="count++">count is {{ count }}</button>
+
   </div>
 
   <p>
