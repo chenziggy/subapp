@@ -1,11 +1,12 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+const {ZInput} = window
 defineProps({
   msg: String,
 })
 const router = useRouter()
-
+const value = ref('')
 
 const count = ref(0)
 </script>
@@ -21,7 +22,7 @@ const count = ref(0)
       <button class="mx-4" @click="router.push('/helloworld')">go baseApp home</button>
     </div>
     <button class="my-4 text-yellow text-10" type="button" @click="count++">count is {{ count }}</button>
-
+    <ZInput v-model="value"></ZInput>
   </div>
 
   <p>
