@@ -14,7 +14,7 @@ const count = ref(0)
   <h1>{{ msg }}</h1>
 
   <div class="card">
-    <button @click="router.push('/home')">go home</button>
+    <button @click="router.push('home')">go home</button>
     <button type="button" @click="count++">count is {{ count }}</button>
     <p class="text-red">
       Edit
