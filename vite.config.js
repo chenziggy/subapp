@@ -7,6 +7,11 @@ import Inspect from "vite-plugin-inspect";
 // https://vitejs.dev/config/
 export default defineConfig({
   base: "http://localhost:8090",
+  resolve: {
+    alias: {
+      '@': '/src'
+    }
+  },
   build: {
     minify: false,
     rollupOptions: {
