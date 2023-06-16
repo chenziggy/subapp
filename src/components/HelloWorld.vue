@@ -22,8 +22,8 @@ const count = ref(0)
       <button class="mx-4" @click="router.push('/helloworld')">go baseApp home</button>
     </div>
     <button class="my-4 text-yellow text-10" type="button" @click="count++">count is {{ count }}</button>
-    <ZInput v-model="value"></ZInput>
   </div>
+  <ZInput v-model="value"></ZInput>
 
   <p>
     Check out

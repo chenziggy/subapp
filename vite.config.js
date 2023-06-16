@@ -6,7 +6,7 @@ import Inspect from "vite-plugin-inspect";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "http://localhost:8090",
+  base: "http://localhost:5175",
   resolve: {
     alias: {
       '@': '/src'
