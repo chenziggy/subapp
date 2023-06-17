@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-const {ZInput} = window
+const {ZInput} = window.components
 defineProps({
   msg: String,
 })
