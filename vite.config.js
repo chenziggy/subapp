@@ -43,6 +43,7 @@ export default defineConfig({
     viteExternalsPlugin({
       vue: "Vue",
       "vue-router": "VueRouter",
+      "pinia": "Pinia"
     }),
 
     Inspect({
