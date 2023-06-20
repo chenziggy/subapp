@@ -3,6 +3,7 @@ import vue from "@vitejs/plugin-vue";
 import { viteExternalsPlugin } from "vite-plugin-externals";
 import UnoCSS from "unocss/vite";
 import Inspect from "vite-plugin-inspect";
+import PiniaStore from './vite-plugin-pinia-store'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -45,7 +46,7 @@ export default defineConfig({
       "vue-router": "VueRouter",
       "pinia": "Pinia"
     }),
-
+    PiniaStore(),
     Inspect({
       build: true,
       outputDir: ".vite-inspect",
