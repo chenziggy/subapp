@@ -3,7 +3,7 @@ import 'virtual:uno.css'
 import '@unocss/reset/tailwind.css'
 import './style.css'
 
- function registerApp() {
+function registerApp() {
   return {
     routes
   }
