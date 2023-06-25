@@ -1,9 +1,12 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useCounterStore } from 'virtual:useGlobalStore'
+
 defineProps({
   msg: String,
 })
+const counterStore = useCounterStore()
 const router = useRouter()
 const value = ref('')
 
@@ -22,6 +25,7 @@ const count = ref(0)
     </div>
     <button class="block mx-auto my-4 text-yellow text-10" type="button" @click="count++">count is {{ count }}</button>
     <ZInput v-model="value"></ZInput>
+    <button  class="block mx-auto my-4 text-yellow text-10" type="button"  @click="counterStore.increment">useGlobalStore: {{counterStore.count}} {{ counterStore.doubleCount }}</button>
   </div>
 
   <p>

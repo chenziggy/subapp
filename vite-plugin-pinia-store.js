@@ -3,6 +3,7 @@ import MagicString from 'magic-string'
 import { Parser } from 'acorn'
 
 const ID_FILTER_REG = /\.(mjs|js|ts|vue|jsx|tsx)(\?.*|)$/;
+const REG_USE_GLOBALSTORE = /from\s+['"]virtual:useGlobalStore['"]/;
 
 export default function () {
   const virtualModuleId = 'virtual:useGlobalStore'
@@ -17,46 +18,50 @@ export default function () {
       }
     },
 
-    // async transform(code, id) {
+    load(id) {
+      if (id === resolvedVirtualModuleId) {
+        // return `export const msg = "from virtual module"`
+        return `export default 'virtual:useGlobalStore'`
+      }
+    },
 
-    //   if (ID_FILTER_REG.test(id)) {
-    //     await init
+    async transform(code, id) {
 
-    //     console.log(code, '/n  xixixix', id)
-    //     const [imports] = parse(code)
+      if (ID_FILTER_REG.test(id) && REG_USE_GLOBALSTORE.test(code)) {
+        const { startIndex, endIndex, scriptContent } = matchScript(code)
 
-    //     let mStr
-    //     imports.forEach(({
-    //       d: dynamic,
-    //       n: dependence,
-    //       ss: statementStart,
-    //       se: statementEnd,
-    //     }) => {
-    //       if (dependence === 'virtual:useGlobalStore') {
-    //         console.log("d, n, ss, se", dynamic, dependence, statementStart, statementEnd)
-    //         console.log('preview code: ', code)
-    //         mStr = mStr || (mStr = new MagicString(code))
-    //         const raw = code.substring(statementStart, statementEnd)
-    //         const newImportStr = transformImports(raw)
-    //         mStr.overwrite(statementStart, statementEnd, newImportStr)
-    //         const ret = {
-    //           code: mStr.toString(),
-    //           map: mStr.generateMap(Object.assign({}, {
-    //             source: id,
-    //             includeContent: true,
-    //             hires: true,
-    //           })),
-    //         }
-    //         console.log(mStr.toString())
+        await init
 
-    //         return mStr.toString()
-    //       }
-    //     })
-    //   }
+        const [imports] = parse(scriptContent)
 
-    //   return code
+        let mStr
+        imports.forEach(({
+          n: dependence,
+          ss: statementStart,
+          se: statementEnd,
+        }) => {
+          if (dependence === virtualModuleId) {
+            mStr = mStr || (mStr = new MagicString(code))
+            const raw = code.substring(startIndex + statementStart, startIndex + statementEnd)
+            const newImportStr = transformImports(raw)
+            mStr.overwrite(startIndex + statementStart, startIndex + statementEnd, newImportStr)
+          }
+        })
+        return mStr.toString()
+      }
+      return code
+    }
+  }
+}
 
-    // }
+function matchScript(code) {
+  const regex = /<script([^>]*)>(.*?)<\/script>/gs;
+  let match;
+  while ((match = regex.exec(code)) !== null) {
+    const scriptContent = match[2]
+    const startIndex = match.index + match[0].indexOf(scriptContent)
+    const endIndex = startIndex + scriptContent.length - 1
+    return { startIndex, endIndex, scriptContent }
   }
 }
 
@@ -69,11 +74,8 @@ function transformImports(raw) {
   if (!specifiers) {
     return ''
   }
-  const code = `const { ${specifiers.map(({ local }) => {
+  const code = `import { inject } from 'vue'\nconst { ${specifiers.map(({ local }) => {
     return local.name
   }).join(',')} } = inject('useGlobalStore')`
   return code
-  return `const { ${specifiers.map(({ local }) => {
-    return local.name
-  }).join(',')} } = inject('useGlobalStore')`
 }
