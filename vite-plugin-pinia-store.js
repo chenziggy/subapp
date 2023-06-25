@@ -28,7 +28,7 @@ export default function () {
     async transform(code, id) {
 
       if (ID_FILTER_REG.test(id) && REG_USE_GLOBALSTORE.test(code)) {
-        const { startIndex, endIndex, scriptContent } = matchScript(code)
+        const { startIndex, scriptContent } = matchScript(code)
 
         await init
 
@@ -60,8 +60,7 @@ function matchScript(code) {
   while ((match = regex.exec(code)) !== null) {
     const scriptContent = match[2]
     const startIndex = match.index + match[0].indexOf(scriptContent)
-    const endIndex = startIndex + scriptContent.length - 1
-    return { startIndex, endIndex, scriptContent }
+    return { startIndex, scriptContent }
   }
 }
 
