@@ -5,12 +5,12 @@ import './style.css'
 
 function registerApp() {
   return {
-    routes
+    routes,
   }
 }
 const DEV = import.meta.env.DEV
 
 export {
   registerApp,
-  DEV
+  DEV,
 }

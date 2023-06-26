@@ -1,6 +1,6 @@
-import { createApp } from 'vue'
-import { createRouter,createWebHistory, useRouter } from 'vue-router'
-import App from './App.vue'
+// import { createApp } from 'vue'
+// import { createRouter,createWebHistory, useRouter } from 'vue-router'
+// import App from './App.vue'
 
 // import './style.css'
 // import routes from './routes'
@@ -10,7 +10,6 @@ import App from './App.vue'
 //   routes
 // })
 // createApp(App).use(router).mount('#app')
-
 
 // import { createApp } from 'vue'
 // import { createRouter, createWebHistory } from 'vue-router'
@@ -23,7 +22,6 @@ import App from './App.vue'
 // const app = createApp(App)
 // app.use(router)
 // app.mount('#app')
-import {registerApp,DEV} from './entry'
-console.log('dev:', DEV)
+import { registerApp } from './entry'
 
 window.registerApp = registerApp
