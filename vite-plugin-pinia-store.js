@@ -2,31 +2,27 @@ import { init, parse } from 'es-module-lexer'
 import MagicString from 'magic-string'
 import { Parser } from 'acorn'
 
-const ID_FILTER_REG = /\.(mjs|js|ts|vue|jsx|tsx)(\?.*|)$/;
-const REG_USE_GLOBALSTORE = /from\s+['"]virtual:useGlobalStore['"]/;
+const ID_FILTER_REG = /\.(mjs|js|ts|vue|jsx|tsx)(\?.*|)$/
+const REG_USE_GLOBALSTORE = /from\s+['"]virtual:useGlobalStore['"]/
 
 export default function () {
   const virtualModuleId = 'virtual:useGlobalStore'
-  const resolvedVirtualModuleId = '\0' + virtualModuleId
+  const resolvedVirtualModuleId = `\0${virtualModuleId}`
 
   return {
     name: 'vite-plugin-pinia-store',
     enforce: 'pre',
     resolveId(id) {
-      if (id === virtualModuleId) {
+      if (id === virtualModuleId)
         return resolvedVirtualModuleId
-      }
     },
 
     load(id) {
-      if (id === resolvedVirtualModuleId) {
-        // return `export const msg = "from virtual module"`
-        return `export default 'virtual:useGlobalStore'`
-      }
+      if (id === resolvedVirtualModuleId)
+        return 'export default \'virtual:useGlobalStore\''
     },
 
     async transform(code, id) {
-
       if (ID_FILTER_REG.test(id) && REG_USE_GLOBALSTORE.test(code)) {
         const { startIndex, scriptContent } = matchScript(code)
 
@@ -50,14 +46,14 @@ export default function () {
         return mStr.toString()
       }
       return code
-    }
+    },
   }
 }
 
 function matchScript(code) {
-  const regex = /<script([^>]*)>(.*?)<\/script>/gs;
-  let match;
-  while ((match = regex.exec(code)) !== null) {
+  const regex = /<script([^>]*)>(.*?)<\/script>/gs
+  const match = regex.exec(code)
+  if (match !== null) {
     const scriptContent = match[2]
     const startIndex = match.index + match[0].indexOf(scriptContent)
     return { startIndex, scriptContent }
@@ -70,9 +66,9 @@ function transformImports(raw) {
     sourceType: 'module',
   })
   const specifiers = (ast.body[0])?.specifiers
-  if (!specifiers) {
+  if (!specifiers)
     return ''
-  }
+
   const code = `import { inject } from 'vue'\nconst { ${specifiers.map(({ local }) => {
     return local.name
   }).join(',')} } = inject('useGlobalStore')`
