@@ -1,10 +1,8 @@
-import App from '@/App.vue'
 
 const routes = [
   {
     path: 'zoom',
     name: 'zoom',
-    component: App,
     children: [
       {
         path: 'helloworld',

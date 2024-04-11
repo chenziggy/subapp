@@ -28,7 +28,7 @@ const count = ref(0)
       </button>
     </div>
     <button class="block mx-auto my-4 text-yellow text-10" type="button" @click="count++">
-      count is {{ count }}
+      sub count is {{ count }}
     </button>
     <ZInput v-model="value" />
     <button class="block mx-auto my-4 text-yellow text-10" type="button" @click="counterStore.increment">
