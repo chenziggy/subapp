@@ -7,7 +7,7 @@ import PiniaStore from './vite-plugin-pinia-store'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: "http://localhost:5175",
+  base: "/subapp/zoom/",
   resolve: {
     alias: {
       '@': '/src'
@@ -56,10 +56,10 @@ export default defineConfig({
   server: {
     port: 5175,
     proxy: {
-      '/assets': {
-        target: 'http://localhost:5175/src',
+      '/subapp/zoom/assets': {
+        target: 'http://localhost:5175/',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/assets/, ''),
+        rewrite: (path) => path.replace(/\/assets/, '/src'),
       }
     }
   }

@@ -22,6 +22,6 @@
 // const app = createApp(App)
 // app.use(router)
 // app.mount('#app')
-import { registerApp } from './entry'
+// import { registerApp } from './entry'
 
-window.registerApp = registerApp
+// window.registerApp = registerApp
