@@ -14,7 +14,6 @@ export default defineConfig({
     }
   },
   build: {
-    minify: false,
     rollupOptions: {
       output: {
         minifyInternalExports: false,
@@ -45,7 +44,6 @@ export default defineConfig({
       vue: "Vue",
       "vue-router": "VueRouter",
       "pinia": "Pinia",
-      "unocss": 'UnoCSS'
     }),
     PiniaStore(),
     Inspect({
@@ -59,8 +57,11 @@ export default defineConfig({
       '/subapp/zoom/assets': {
         target: 'http://localhost:5175/',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/\/assets/, '/src'),
+        rewrite: path => path.replace(/\/assets/, '/src')
       }
-    }
+    },
+    hmr: {
+      clientPort: 5175,
+    },
   }
 });
