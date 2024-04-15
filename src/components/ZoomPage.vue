@@ -20,7 +20,6 @@ const count = ref(0)
       <h1 class="text-red mb-10">
         SubApp zoom HelloWorld.vue
         <img src="~@img/avatar.png" class="h-10 w-10 block mx-auto my-5" alt="">
-
       </h1>
       <div>
         <button class="mx-4" @click="router.push('home')">
@@ -38,20 +37,7 @@ const count = ref(0)
         useGlobalStore: {{ counterStore.count }} {{ counterStore.doubleCount }}
       </button>
     </div>
-
-    <p>
-      Check out
-      <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank">create-vue</a>, the official Vue + Vite
-      starter
-    </p>
-    <p>
-      Install
-      <a href="https://github.com/vuejs/language-tools" target="_blank">Volar</a>
-      in your IDE for a better DX
-    </p>
-    <p class="read-the-docs">
-      Click on the Vite and Vue logos to learn more
-    </p>
+    <VzFlipClock/>
   </div>
 </template>
 
