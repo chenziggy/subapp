@@ -6,7 +6,7 @@ const routes = [
     children: [
       {
         path: 'helloworld',
-        component: () => import('./components/HelloWorld.vue'),
+        component: () => import('./components/ZoomPage.vue'),
       },
       {
         path: 'home',

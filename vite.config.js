@@ -10,7 +10,8 @@ export default defineConfig({
   base: "/subapp/zoom/",
   resolve: {
     alias: {
-      '@': '/src'
+      '@': '/src',
+      '@img': '/src/assets/img'
     }
   },
   build: {
