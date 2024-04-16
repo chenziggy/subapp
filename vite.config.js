@@ -4,7 +4,7 @@ import { viteExternalsPlugin } from 'vite-plugin-externals'
 import UnoCSS from 'unocss/vite'
 import Inspect from 'vite-plugin-inspect'
 import AutoImport from 'unplugin-auto-import/vite'
-import PiniaStore from './vite-plugin-pinia-store'
+import GlobalStore from './src/utils/vite-plugin-global-store'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -46,7 +46,7 @@ export default defineConfig({
       'vue-router': 'VueRouter',
       'pinia': 'Pinia',
     }),
-    PiniaStore(),
+    GlobalStore(),
     AutoImport({
       imports: ['vue'],
     }),
